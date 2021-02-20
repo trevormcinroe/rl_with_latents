@@ -2,3 +2,4 @@ pybullet
 torch
 torchvision
 matplotlib
+tqdm

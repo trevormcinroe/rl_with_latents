@@ -34,8 +34,8 @@ env = KukaEnv(
     max_steps=args.max_ep_len,
     action_repeat=args.repeat,
     images=args.images,
-    static_all=True,
-    static_obj_rnd_pos=False,
+    static_all=False,
+    static_obj_rnd_pos=True,
     rnd_obj_rnd_pos=False,
     full_color=True
 )

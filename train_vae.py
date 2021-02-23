@@ -11,11 +11,11 @@ from torchvision import transforms
 from tqdm import tqdm
 
 
-env = KukaEnv(images=True, static_all=True, is_discrete=True,
-			  static_obj_rnd_pos=False, rnd_obj_rnd_pos=False, renders=False,
+env = KukaEnv(images=True, static_all=False, is_discrete=True,
+			  static_obj_rnd_pos=True, rnd_obj_rnd_pos=False, renders=False,
 			  full_color=True)
 
-vae = VAE(8)
+vae = VAE(64)
 
 vae.to('cuda:0')
 optimizer = torch.optim.Adam(vae.parameters(), lr=0.0002)
@@ -30,7 +30,6 @@ def vae_loss(x, x_hat, mu, var, weight):
 	)
 
 	return recon_err + weight * kl_div
-
 
 memories = np.zeros((10000, 224, 224, 3))
 actions = [_ for _ in range(7)]
@@ -89,10 +88,10 @@ for i in tqdm(range(EPOCHS)):
 			y[0]
 		], dim=2)
 
-		transforms.ToPILImage()(img).save(f'../imgs/out8_{i}.png')
+		transforms.ToPILImage()(img).save(f'./imgs/out_static_rnd_64_{i}.png')
 
 
-torch.save(vae.state_dict(), '../models/vae_static_8.pth')
+torch.save(vae.state_dict(), './models/vae_static_rnd_64.pth')
 
 
 

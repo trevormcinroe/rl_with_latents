@@ -71,7 +71,7 @@ model = PolicyFC(args.z_dims)
 # Encoder
 if args.encoder_type == 'vae':
 	encoder = VAE(args.z_dims)
-	encoder.load_state_dict(torch.load('./models/vae_static_rnd_down_32.pth'))
+	encoder.load_state_dict(torch.load('./models/vae_static_rnd_down_8.pth'))
 elif args.encoder_type == 'stdim':
 	encoder_features = DotDict({
 		'feature_size': args.z_dims,

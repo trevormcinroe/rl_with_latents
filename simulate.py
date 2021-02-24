@@ -109,7 +109,6 @@ def finish_episode():
     # reset gradients
     optimizer.zero_grad()
 
-
     # sum up all the values of policy_losses and value_losses
     loss = torch.stack(policy_losses).sum() + torch.stack(value_losses).sum()
 

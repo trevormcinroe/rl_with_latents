@@ -15,7 +15,7 @@ env = KukaEnv(images=True, static_all=False, is_discrete=True,
 			  static_obj_rnd_pos=True, rnd_obj_rnd_pos=False, renders=False,
 			  full_color=True)
 
-vae = VAE(64)
+vae = VAE(16)
 
 vae.to('cuda:0')
 optimizer = torch.optim.Adam(vae.parameters(), lr=0.0002)
@@ -32,7 +32,7 @@ def vae_loss(x, x_hat, mu, var, weight):
 	return recon_err + weight * kl_div
 
 memories = np.zeros((10000, 224, 224, 3))
-actions = [_ for _ in range(7)]
+actions = [1, 2, 3, 4, 5, 5, 5, 5, 5]
 mem_cntr = 0
 
 while mem_cntr < memories.shape[0]:
@@ -49,7 +49,6 @@ while mem_cntr < memories.shape[0]:
 
 		if done:
 			break
-
 
 EPOCHS = 20000
 loss_hist = []
@@ -88,10 +87,10 @@ for i in tqdm(range(EPOCHS)):
 			y[0]
 		], dim=2)
 
-		transforms.ToPILImage()(img).save(f'./imgs/out_static_rnd_64_{i}.png')
+		transforms.ToPILImage()(img).save(f'./imgs/out_static_rnd_down_16_{i}.png')
 
 
-torch.save(vae.state_dict(), './models/vae_static_rnd_64.pth')
+torch.save(vae.state_dict(), './models/vae_static_rnd_down_16.pth')
 
 
 

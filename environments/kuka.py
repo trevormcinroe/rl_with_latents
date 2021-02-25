@@ -646,10 +646,16 @@ class KukaEnv(gym.Env):
 		Returns:
 
 		"""
+		passed_objs = [
+			'random_urdfs/359/359.urdf', 'random_urdfs/935/935.urdf', 'random_urdfs/199/199.urdf',
+			'random_urdfs/978/978.urdf', 'random_urdfs/182/182.urdf'
+		]
 		if test:
-			urdf_pattern = os.path.join(self.urdf_root, 'random_urdfs/*0/*.urd')
+			urdf_pattern = os.path.join(self.urdf_root, 'random_urdfs/*0/*.urdf')
 		else:
-			urdf_pattern = os.path.join(self.urdf_root, 'random_urdfs/*[1-9]/*.urdf')
+			obj = np.random.choice(passed_objs)
+			# urdf_pattern = os.path.join(self.urdf_root, 'random_urdfs/*[1-9]/*.urdf')
+			urdf_pattern = os.path.join(self.urdf_root, obj)
 
 		found_object_directories = glob.glob(urdf_pattern)
 		total_num_objects = len(found_object_directories)

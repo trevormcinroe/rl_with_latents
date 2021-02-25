@@ -166,6 +166,10 @@ def main():
             # print('Episode {}\tLast reward: {:.2f}\tAverage reward: {:.2f}\tPct: {:.4f}\'.format(
             #       i, ep_reward, running_reward, np.mean(completed[-100:])))
 
+        if i % 2500 == 0:
+            filename_net = 'results/exp_model_' + str(args.name) + f'{i}_.pth'
+            torch.save(model.state_dict(), filename_net)
+
         # check if we have "solved" the problem
         # if running_reward > args.aver: #env.spec.reward_threshold:
     print("Run has completed!")

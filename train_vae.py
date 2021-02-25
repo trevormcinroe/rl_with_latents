@@ -12,10 +12,10 @@ from tqdm import tqdm
 
 
 env = KukaEnv(images=True, static_all=False, is_discrete=True,
-			  static_obj_rnd_pos=True, rnd_obj_rnd_pos=False, renders=False,
+			  static_obj_rnd_pos=False, rnd_obj_rnd_pos=False, renders=False,
 			  full_color=True)
 
-vae = VAE(16)
+vae = VAE(32)
 
 vae.to('cuda:0')
 optimizer = torch.optim.Adam(vae.parameters(), lr=0.0002)
@@ -87,10 +87,10 @@ for i in tqdm(range(EPOCHS)):
 			y[0]
 		], dim=2)
 
-		transforms.ToPILImage()(img).save(f'./imgs/out_static_rnd_down_16_{i}.png')
+		transforms.ToPILImage()(img).save(f'./imgs/out_rnd_static_down_32_{i}.png')
 
 
-torch.save(vae.state_dict(), './models/vae_static_rnd_down_16.pth')
+torch.save(vae.state_dict(), './models/vae_rnd_static_down_32.pth')
 
 
 
